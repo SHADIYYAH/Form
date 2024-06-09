@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import FormStep from "./FormStep";
 import SelectPlanStep from "./SelectStep";
@@ -11,8 +9,12 @@ const Form = () => {
     name: "",
     email: "",
     phonenumber: "",
-    plan: "",
-    selectedAddOns: []
+    // plan: "",
+    selectedPlan: {
+      name: "",
+      price: 0,
+    },
+    selectedAddOns: [],
   });
 
   const [errors, setErrors] = useState({
@@ -22,7 +24,6 @@ const Form = () => {
   });
 
   const [step, setStep] = useState(1);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,10 +38,10 @@ const Form = () => {
     });
   };
 
-  const handlePlanChange = (e) => {
+  const handlePlanChange = (plan) => {
     setData({
       ...data,
-      plan: e.target.value,
+      selectedPlan:plan ,
     });
   };
 
@@ -55,7 +56,6 @@ const Form = () => {
       };
     });
   };
-
 
   const validate = () => {
     const newErrors = {};
@@ -126,7 +126,6 @@ const Form = () => {
             )}
           </div>
           <div className="px-6 py-6 text-blue-900">
-           
             {step === 1 && (
               <FormStep
                 data={data}
@@ -137,8 +136,8 @@ const Form = () => {
             )}
             {step === 2 && (
               <SelectPlanStep
-                selectedPlan={data.plan}
-                handlePlanChange={handlePlanChange}
+                selectedPlan={data.selectedPlan}
+                handlePlanChange={(selectedPlan) => handlePlanChange(selectedPlan)}
                 handleNext={handleNextStep}
                 handleBack={handleBackStep}
               />
@@ -256,4 +255,3 @@ export default Form;
 // };
 
 // export default Form;
-
