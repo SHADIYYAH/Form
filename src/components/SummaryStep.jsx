@@ -1,10 +1,15 @@
 
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SummaryStep = ({ data, setStep }) => {
   const [confirmed, setConfirmed] = useState(false);
+
+  useEffect(() => {
+    console.log("Selected Plan:", data.selectedPlan);
+    console.log("Selected Add-Ons:", data.selectedAddOns);
+  }, [data]);
 
   const calculateTotal = () => {
     let total = 0;
@@ -45,7 +50,7 @@ const SummaryStep = ({ data, setStep }) => {
       <p>Double check everything looks OK before confirming.</p>
       <form onSubmit={handleSubmit} className="py-7 space-y-6">
         <div className="flex flex-col gap-1">
-          <label>Plan</label>
+          
           <div className="flex justify-between items-center gap-2 border p-2 rounded-md">
             <span>
               {data.selectedPlan.name} ({data.selectedPlan.price < 100 ? "Monthly" : "Yearly"})
@@ -100,4 +105,3 @@ const SummaryStep = ({ data, setStep }) => {
 };
 
 export default SummaryStep;
-ss
