@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from "react";
 
 const SummaryStep = ({ data, setStep }) => {
@@ -16,11 +13,13 @@ const SummaryStep = ({ data, setStep }) => {
     if (data.selectedPlan && typeof data.selectedPlan.price === 'number') {
       total += data.selectedPlan.price;
     }
-    data.selectedAddOns.forEach((addOn) => {
-      if (addOn && typeof addOn.price === 'number') {
-        total += addOn.price;
-      }
-    });
+    if (data.selectedAddOns && Array.isArray(data.selectedAddOns)) {
+      data.selectedAddOns.forEach((addOn) => {
+        if (addOn && typeof addOn.price === 'number') {
+          total += addOn.price;
+        }
+      });
+    }
     return total;
   };
 
@@ -50,24 +49,26 @@ const SummaryStep = ({ data, setStep }) => {
       <p>Double check everything looks OK before confirming.</p>
       <form onSubmit={handleSubmit} className="py-7 space-y-6">
         <div className="flex flex-col gap-1">
-          
           <div className="flex justify-between items-center gap-2 border p-2 rounded-md">
-            <span>
-              {data.selectedPlan.name} ({data.selectedPlan.price < 100 ? "Monthly" : "Yearly"})
-            </span>
+            <div>
+              <span>
+                {data.selectedPlan.name} ({data.selectedPlan.price < 100 ? "Monthly" : "Yearly"})
+              </span> 
+            </div>
             <span>${data.selectedPlan.price}</span>
           </div>
           <button
             type="button"
             onClick={() => setStep(2)}
-            className="text-blue-900 underline"
+            className="text-blue-900 text-left text-bold leading-7"
+            style={{ textDecoration: "none" }}
           >
             Change
           </button>
         </div>
         <div className="flex flex-col gap-1">
           <label>Add-ons</label>
-          {data.selectedAddOns.length > 0 ? (
+          {data.selectedAddOns && data.selectedAddOns.length > 0 ? (
             <ul className="py-2 px-2 border border-blue-900 rounded-md">
               {data.selectedAddOns.map((addOn, index) => (
                 <li key={index} className="flex justify-between">
@@ -77,7 +78,7 @@ const SummaryStep = ({ data, setStep }) => {
               ))}
             </ul>
           ) : (
-            <p>No add-ons selected</p>
+            <p className="text-bold bg-slate-800">No add-ons selected</p>
           )}
         </div>
         <div className="flex flex-col gap-1">

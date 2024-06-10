@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Arcade from "../assets/icon-arcade.svg";
 import Advanced from "../assets/icon-advanced.svg";
@@ -98,10 +97,10 @@ const SelectPlanStep = ({
             Yearly
           </span>
         </div>
-        <div className="flex justify-between ">
+        <div className="flex justify-between">
           <button
             type="button"
-            className={`w-20 p-2 rounded-sm ${
+            className={`w-16 p-1 rounded-sm ${
               selectedPlan
                 ? "bg-blue-900 text-white cursor-pointer"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -113,9 +112,9 @@ const SelectPlanStep = ({
           </button>
           <button
             type="submit"
-            className="bg-blue-900 w-20 text-white p-2 rounded-sm" 
+            className="bg-blue-900 w-16 text-white p-1 rounded-sm"
           >
-            Next Step
+            Next
           </button>
         </div>
       </form>
